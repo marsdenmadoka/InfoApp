@@ -1,5 +1,6 @@
 package com.example.newsapp.Presentation.onboarding.components
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -58,9 +59,10 @@ fun OnboardingPage(
 
 
 
-@Preview
+@Preview(showBackground = true)
+@Preview(uiMode = UI_MODE_NIGHT_YES, showBackground = true)
 @Composable
-fun OnboardingPagePrevew(){
+fun OnboardingPagePreview(){
     NewsAppTheme {
         OnboardingPage(page = pages[0])
     }
