@@ -24,7 +24,7 @@ fun PageIndicator(
 ){
     //creating the indicator
 Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween){
-    repeat(pageSize){ page ->
+    repeat(pageSize){ page -> //repeat te page size
         Box(modifier = Modifier.size(14.dp).clip(CircleShape)
             .background(color = if(page ==  selectedPage) selectedColor else unselectedColor))
     }

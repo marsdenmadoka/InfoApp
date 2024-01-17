@@ -13,15 +13,17 @@ import com.example.newsapp.Presentation.onboarding.components.OnboardingPage
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
+//combine onboaradingpage and pageindicator and button
 fun OnBoardingScreen() {
-    Column(modifier = Modifier.fillMaxSize()) {
+    Column(modifier = Modifier.fillMaxSize()) {//paging
         val pagerState = rememberPagerState(
             initialPage = 0){
             pages.size
         }
+
+
         val buttonState = remember {
             derivedStateOf {
-
                 when(pagerState.currentPage){
                     0 -> listOf("","Next")
                     1 -> listOf("Back","Next")
