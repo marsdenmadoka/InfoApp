@@ -29,9 +29,10 @@ class LocalUserMangerImpl (
        }
     }
 }
-//instance from the datastore//extension function
+//have instance from the datastore//extension function
 private val Context.dataStore:DataStore<Preferences> by preferencesDataStore(name = USER_SETTINGS)
 
+//to e able to save key value in our datastore preference
 private object PreferencesKeys {
     val APP_ENTRY = booleanPreferencesKey(name = Constants.APP_ENTRY)
 
