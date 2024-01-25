@@ -34,12 +34,13 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)//drawing screen behind system bars
         installSplashScreen()
-        lifecycleScope.launch {
-            //testing if our di works
-            appEntryUseCases.readAppEntry().collect{
-                Log.d("test",it.toString())
-            }
-        }
+
+/**     lifecycleScope.launch {
+//            //testing if our di works
+//            appEntryUseCases.readAppEntry().collect{
+//                Log.d("test",it.toString())
+//            }
+//        }**/
         setContent {
             NewsAppTheme {
 
