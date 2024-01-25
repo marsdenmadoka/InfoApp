@@ -43,6 +43,7 @@ fun OnBoardingScreen() {
         }
 
         //bottom section for the indicator and button
+        //indicator
         Spacer(modifier = Modifier.weight(1f))
         Row(
             modifier = Modifier
@@ -52,52 +53,56 @@ fun OnBoardingScreen() {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            PageIndicator(modifier = Modifier.width(PageIndicatorWidth), pageSize = pages.size, selectedPage = pagerState.currentPage)
+            PageIndicator(
+                modifier = Modifier.width(PageIndicatorWidth),
+                pageSize = pages.size,
+                selectedPage = pagerState.currentPage
+            )
 
-        }
-    //buttons
+            //buttons
+            val buttonState = remember {
+                derivedStateOf {
+                    when (pagerState.currentPage) {
+                        0 -> listOf("", "Next")
+                        1 -> listOf("Back", "Next")
+                        2 -> listOf("Back", "Get Started")
+                        else -> listOf("")
 
-        val buttonState = remember {
-            derivedStateOf {
-                when (pagerState.currentPage) {
-                    0 -> listOf("", "Next")
-                    1 -> listOf("Back", "Next")
-                    2 -> listOf("Back", "Get Started")
-                    else -> listOf("")
-
-                }
-            }
-        }
-
-        Row (verticalAlignment = Alignment.CenterVertically){
-            val scope = rememberCoroutineScope()
-            if (buttonState.value[0].isNotEmpty()){
-                NewsTextButton(text = buttonState.value[0],
-                    onClick ={
-                        scope.launch {
-                            pagerState.animateScrollToPage(page = pagerState.currentPage - 1)
-                        }
-
-
-                    } 
-                )
-                }
-            NewsButton(text = buttonState.value[1], onClick = {
-                scope.launch {
-
-                    if(pagerState.currentPage ==3){
-                        //TODO: Navigate to Home Screen
-                    }else{
-                        pagerState.animateScrollToPage(
-                            page = pagerState.currentPage + 1
-                        )
                     }
                 }
-            })
             }
 
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                val scope = rememberCoroutineScope()
+                if (buttonState.value[0].isNotEmpty()) {
+                    NewsTextButton(text = buttonState.value[0],
+                        onClick = {
+                            scope.launch {
+                                pagerState.animateScrollToPage(page = pagerState.currentPage - 1)
+                            }
+
+
+                        }
+                    )
+                }
+                NewsButton(text = buttonState.value[1], onClick = {
+                    scope.launch {
+
+                        if (pagerState.currentPage == 3) {
+                            //TODO: Navigate to Home Screen
+                        } else {
+                            pagerState.animateScrollToPage(
+                                page = pagerState.currentPage + 1
+                            )
+                        }
+                    }
+                }
+                )
+            }
+
+
         }
-
-
-
+        Spacer(modifier = Modifier.weight(0.5f))
     }
+
+}
