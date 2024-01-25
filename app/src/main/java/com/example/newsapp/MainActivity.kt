@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
     lateinit var appEntryUseCases:AppEntryUseCases
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window, false)
+        WindowCompat.setDecorFitsSystemWindows(window, false)//drawing screen behind system bars
         installSplashScreen()
         lifecycleScope.launch {
             //testing if our di works

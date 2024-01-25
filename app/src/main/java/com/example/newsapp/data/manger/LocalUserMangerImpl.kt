@@ -25,15 +25,18 @@ class LocalUserMangerImpl (
 //reading our keys
     override fun readAppEntry(): Flow<Boolean> {
        return context.dataStore.data.map {preferences ->
-           preferences[PreferencesKeys.APP_ENTRY]?:false
+           preferences[PreferencesKeys.APP_ENTRY]?:false //if no values return false
        }
     }
 }
-//have instance from the datastore//extension function
+//we want to have instance from the datastore//extension function ||access objet dataStore via context
 private val Context.dataStore:DataStore<Preferences> by preferencesDataStore(name = USER_SETTINGS)
 
-//to e able to save key value in our datastore preference
+//to be able to save key values in our datastore preference
 private object PreferencesKeys {
     val APP_ENTRY = booleanPreferencesKey(name = Constants.APP_ENTRY)
 
 }
+
+
+//nstance required to make a call to the member, or an outer class instance for an inner class constructor.
