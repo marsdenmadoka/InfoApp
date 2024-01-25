@@ -17,19 +17,23 @@ import com.example.newsapp.ui.theme.BlueGray
 @Composable
 fun PageIndicator(
     modifier: Modifier = Modifier,
-    pageSize:Int,//number of indicators
-    selectedPage:Int,
-    selectedColor: Color=MaterialTheme.colorScheme.primary,
-    unselectedColor:Color = BlueGray
-){
+    pageSize: Int,//number of indicators
+    selectedPage: Int,
+    selectedColor: Color = MaterialTheme.colorScheme.primary,
+    unselectedColor: Color = BlueGray
+) {
     //creating the indicator
-Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween){
-    repeat(pageSize){ page -> //repeat te page size
-        Box(modifier = Modifier.size(14.dp).clip(CircleShape)
-            .background(color = if(page ==  selectedPage) selectedColor else unselectedColor))
-    }
+    Row(modifier = modifier, horizontalArrangement = Arrangement.SpaceBetween) {
+        repeat(pageSize) { page -> //repeat te page size
+            Box(
+                modifier = Modifier
+                    .size(14.dp)
+                    .clip(CircleShape)
+                    .background(color = if (page == selectedPage) selectedColor else unselectedColor)
+            )
+        }
 
-}
+    }
 
 
 }

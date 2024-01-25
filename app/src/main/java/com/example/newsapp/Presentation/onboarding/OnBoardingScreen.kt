@@ -28,7 +28,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-//combine onboaradingpage and pageindicator and button
+//combine onboaradingPage and pageindicator and button
 fun OnBoardingScreen() {
     Column(modifier = Modifier.fillMaxSize()) {//paging
         val pagerState = rememberPagerState(
