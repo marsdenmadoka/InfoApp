@@ -18,8 +18,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.WindowCompat
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.lifecycleScope
 import com.example.newsapp.Presentation.onboarding.OnBoardingScreen
+import com.example.newsapp.Presentation.onboarding.OnBoardingViewModel
 import com.example.newsapp.domain.usecases.AppEntryUseCases
 import com.example.newsapp.ui.theme.NewsAppTheme
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
@@ -29,7 +31,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject
-    lateinit var appEntryUseCases:AppEntryUseCases
+  //  lateinit var appEntryUseCases:AppEntryUseCases //for tests
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)//drawing screen behind system bars
@@ -44,6 +46,13 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewsAppTheme {
 
+                Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
+                   val viewModel: OnBoardingViewModel = hiltViewModel()
+                    OnBoardingScreen(
+                        event = viewModel::onEvent
+                    )
+                }
+
                 //use systemUiController library to change status and navigation bar colours
                 val isSystemInDarkMode = isSystemInDarkTheme()
                 val systemController = rememberSystemUiController()
@@ -54,9 +63,7 @@ class MainActivity : ComponentActivity() {
                     )
                 }
 
-                Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
-                    OnBoardingScreen()
-                }
+
 
             }
         }
