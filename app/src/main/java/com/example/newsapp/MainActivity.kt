@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             NewsAppTheme {
 
-                //uses systemUiController library to change status and navigation bar colours
+                //use systemUiController library to change status and navigation bar colours
                 val isSystemInDarkMode = isSystemInDarkTheme()
                 val systemController = rememberSystemUiController()
                 SideEffect {
