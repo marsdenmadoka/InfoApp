@@ -15,12 +15,16 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import com.example.newsapp.Presentation.Dimes.MediumPadding2
 import com.example.newsapp.Presentation.Dimes.PageIndicatorWidth
+import com.example.newsapp.Presentation.commons.NewsButton
+import com.example.newsapp.Presentation.commons.NewsTextButton
 import com.example.newsapp.Presentation.onboarding.components.OnboardingPage
 import com.example.newsapp.Presentation.onboarding.components.PageIndicator
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -51,7 +55,7 @@ fun OnBoardingScreen() {
             PageIndicator(modifier = Modifier.width(PageIndicatorWidth), pageSize = pages.size, selectedPage = pagerState.currentPage)
 
         }
-
+    //buttons
 
         val buttonState = remember {
             derivedStateOf {
@@ -65,6 +69,35 @@ fun OnBoardingScreen() {
             }
         }
 
+        Row (verticalAlignment = Alignment.CenterVertically){
+            val scope = rememberCoroutineScope()
+            if (buttonState.value[0].isNotEmpty()){
+                NewsTextButton(text = buttonState.value[0],
+                    onClick ={
+                        scope.launch {
+                            pagerState.animateScrollToPage(page = pagerState.currentPage - 1)
+                        }
+
+
+                    } 
+                )
+                }
+            NewsButton(text = buttonState.value[1], onClick = {
+                scope.launch {
+
+                    if(pagerState.currentPage ==3){
+                        //TODO: Navigate to Home Screen
+                    }else{
+                        pagerState.animateScrollToPage(
+                            page = pagerState.currentPage + 1
+                        )
+                    }
+                }
+            })
+            }
+
+        }
+
+
 
     }
-}
