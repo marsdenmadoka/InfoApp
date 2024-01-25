@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.newsapp.Presentation.onboarding.OnBoardingScreen
 import com.example.newsapp.domain.usecases.AppEntryUseCases
@@ -31,6 +32,7 @@ class MainActivity : ComponentActivity() {
     lateinit var appEntryUseCases:AppEntryUseCases
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         installSplashScreen()
         lifecycleScope.launch {
             //testing if our di works
