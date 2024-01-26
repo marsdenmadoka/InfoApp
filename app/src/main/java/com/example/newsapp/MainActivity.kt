@@ -47,10 +47,8 @@ class MainActivity : ComponentActivity() {
             NewsAppTheme {
 
                 Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
-                   val viewModel: OnBoardingViewModel = hiltViewModel()
-                    OnBoardingScreen(
-                        event = viewModel::onEvent
-                    )
+
+
                 }
 
                 //use systemUiController library to change status and navigation bar colours
