@@ -31,18 +31,18 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject
-  //  lateinit var appEntryUseCases:AppEntryUseCases //for tests
+   lateinit var appEntryUseCases:AppEntryUseCases //for tests
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)//drawing screen behind system bars
         installSplashScreen()
 
-/**     lifecycleScope.launch {
-//            //testing if our di works
-//            appEntryUseCases.readAppEntry().collect{
-//                Log.d("test",it.toString())
-//            }
-//        }**/
+    lifecycleScope.launch {
+            //testing if our di works
+            appEntryUseCases.readAppEntry().collect{
+                Log.d("test",it.toString())
+            }
+        }
         setContent {
             NewsAppTheme {
 
