@@ -16,7 +16,7 @@ val pages = listOf(
 
         title = "Lorem Ipsum is Simple",
         description = "Lorem Ipsum is Simple dummy text of the printing and typesetting",
-        image = R.drawable.onboarding1
+        image = R.drawable.image1
 
     ),
 
@@ -24,14 +24,14 @@ val pages = listOf(
 
         title = "Lorem Ipsum is Simple",
         description = "Lorem Ipsum is Simple dummy text of the printing and typesetting",
-        image = R.drawable.onboarding2
+        image = R.drawable.image5
 
     ),
     Page(
 
         title = "Lorem Ipsum is Simple",
         description = "Lorem Ipsum is Simple dummy text of the printing and typesetting",
-        image = R.drawable.onboarding3
+        image = R.drawable.image4
 
     )
 )
