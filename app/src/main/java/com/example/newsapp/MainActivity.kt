@@ -31,24 +31,27 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     @Inject
-   lateinit var appEntryUseCases:AppEntryUseCases //for tests
+  //  lateinit var appEntryUseCases:AppEntryUseCases //for tests
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)//drawing screen behind system bars
         installSplashScreen()
 
-    lifecycleScope.launch {
+   /* lifecycleScope.launch {
             //testing if our di works
             appEntryUseCases.readAppEntry().collect{
                 Log.d("test",it.toString())
-            }
-        }
+            } */
+
         setContent {
             NewsAppTheme {
 
                 Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
 
-
+                  /* val viewModel: OnBoardingViewModel = hiltViewModel()
+                    OnBoardingScreen(
+                        event = viewModel::onEvent
+                    )*/
                 }
 
                 //use systemUiController library to change status and navigation bar colours
