@@ -30,49 +30,49 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-   // @Inject
-  //  lateinit var appEntryUseCases:AppEntryUseCases //for tests
+    // @Inject
+    //  lateinit var appEntryUseCases:AppEntryUseCases //for tests
 
     val viewModel by viewModels<MainViewModel>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)//drawing screen behind system bars
         installSplashScreen().apply { //keep splash screen visible until we fetch startDestination from preferences
-            setKeepOnScreenCondition{
+            setKeepOnScreenCondition {
                 viewModel.splashCondition
             }
         }
 
-   /* lifecycleScope.launch {
-            //testing if our di works
-            appEntryUseCases.readAppEntry().collect{
-                Log.d("test",it.toString())
-            } */
+        /* lifecycleScope.launch {
+                 //testing if our di works
+                 appEntryUseCases.readAppEntry().collect{
+                     Log.d("test",it.toString())
+                 } */
 
         setContent {
             NewsAppTheme {
-                Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)){
-                   val startDestination = viewModel.startDestination
-                    NavGraph(startDestination = startDestination )
-                  /* val viewModel: OnBoardingViewModel = hiltViewModel()
-                    OnBoardingScreen(
-                        event = viewModel::onEvent
-                    )*/
-                }
 
-                /*
-                //use systemUiController library to change status and navigation bar colours
                 val isSystemInDarkMode = isSystemInDarkTheme()
                 val systemController = rememberSystemUiController()
+
                 SideEffect {
                     systemController.setSystemBarsColor(
                         color = Color.Transparent,
                         darkIcons = !isSystemInDarkMode
                     )
-                } */
+                }
 
+                Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
+                    val startDestination = viewModel.startDestination
+                    NavGraph(startDestination = startDestination)
+                    /* val viewModel: OnBoardingViewModel = hiltViewModel()
+                      OnBoardingScreen(
+                          event = viewModel::onEvent
+                      )*/
+                }
 
 
             }
