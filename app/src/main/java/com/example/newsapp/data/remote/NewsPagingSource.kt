@@ -17,6 +17,13 @@ class NewsPagingSource(
         return try {
             val newsResponse = newsApi.getNews(sources = sources, page = page)
             totalNewsCount += newsResponse.articles.size
+            val articles = newsResponse.articles.distinctBy { //to avoid getting the same article more than once we use distinctBy func used to remove duplicate in a list
+               it.title }
+            LoadResult.Page(
+                data = articles,
+                nextKey = if (totalNewsCount == newsResponse.totalResults) null else page + 1,
+                prevKey = null
+            )
         }catch (e:Exception){
             e.printStackTrace()
             LoadResult.Error(
@@ -26,7 +33,10 @@ class NewsPagingSource(
     }
 
     override fun getRefreshKey(state: PagingState<Int, Article>): Int? {
-        TODO("Not yet implemented")
+        return state.anchorPosition?.let {  anchorPosition ->
+            val anchorPage =state.closestPageToPosition(anchorPosition)
+            anchorPage?.prevKey?.plus(1)?:anchorPage?.nextKey?.minus(1)
+        }
     }
 
 
