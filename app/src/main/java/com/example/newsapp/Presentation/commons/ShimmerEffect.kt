@@ -1,6 +1,7 @@
 package com.example.newsapp.Presentation.commons
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
@@ -30,6 +31,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
@@ -37,9 +39,11 @@ import com.example.newsapp.Presentation.Dimes
 import com.example.newsapp.Presentation.Dimes.MediumPadding1
 import com.example.newsapp.R
 import com.example.newsapp.domain.model.Article
+import com.example.newsapp.ui.theme.NewsAppTheme
 
 
 //@SuppressLint("ModifierFactoryUnreferencedReceiver")
+@SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.shimmerEffect():Modifier = composed {
     val transition = rememberInfiniteTransition()
     val alpha = transition.animateFloat(
@@ -63,7 +67,7 @@ fun ArticleCardShimmerEffect(
             modifier = Modifier
                 .size(Dimes.ArticleCardSize)
                 .clip(MaterialTheme.shapes.medium)
-                 .shimmerEffect()
+                .shimmerEffect()
         )
         Column(
             verticalArrangement = Arrangement.SpaceAround,
@@ -86,7 +90,7 @@ fun ArticleCardShimmerEffect(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth(0.5f)
-                        .height(30.dp)
+                        .height(15.dp)
                         .padding(horizontal = MediumPadding1)
                         .shimmerEffect()
                 )
@@ -94,6 +98,15 @@ fun ArticleCardShimmerEffect(
 
         }
     }
+}
+
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun ArticleCardShimmerEffectPreview(){
+NewsAppTheme {
+    ArticleCardShimmerEffect()
+}
 }
 
 
