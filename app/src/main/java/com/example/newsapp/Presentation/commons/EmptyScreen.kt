@@ -38,7 +38,7 @@ import java.net.ConnectException
 import java.net.SocketTimeoutException
 
 @Composable
-fun EmptyScreen(error: LoadState.Error? =null) {
+fun EmptyScreen(error: LoadState.Error? = null) {
     var message by remember {
         mutableStateOf(parseErrorMessage(error = error))
     }
@@ -46,71 +46,78 @@ fun EmptyScreen(error: LoadState.Error? =null) {
     var icon by remember {
         mutableStateOf(R.drawable.ic_network_error)
     }
-    if(error == null){
+    if (error == null) {
         message = "you have not saved news so far !"
         icon = R.drawable.ic_search_document
     }
-     var startAnimation by remember {
-         mutableStateOf(false)
-     }
+    var startAnimation by remember {
+        mutableStateOf(false)
+    }
 
     val alphaAnimation by animateFloatAsState(
-        targetValue = if(startAnimation) 0.3f else 0f,
+        targetValue = if (startAnimation) 0.3f else 0f,
         animationSpec = tween(durationMillis = 1000)
     )
 
+
+    LaunchedEffect(key1 = true) {
+        startAnimation = true
+    }
+
+    EmptyContent(alphaAnim = alphaAnimation, message = message, iconId = icon)
+
 }
-    LaunchedEffect(key1 = true, block = ){
+
+@Composable
+fun EmptyContent(alphaAnim: Float, message: String, iconId: Int) {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        Icon(
+            painter = painterResource(id = iconId), contentDescription = null,
+            tint = if (isSystemInDarkTheme()) LightGray else DarkGray,
+            modifier = Modifier
+                .size(120.dp)
+                .alpha(alphaAnim)
+        )
+        Text(
+            modifier = Modifier
+                .padding(10.dp)
+                .alpha(alphaAnim),
+            text = message,
+            style = MaterialTheme.typography.bodyMedium,
+            color = if (isSystemInDarkTheme()) LightGray else DarkGray
+        )
+
 
     }
-    
-    @Composable
-    fun EmptyContent(alphaAnim:Float, message:String, iconId:Int){
-        Column ( modifier = Modifier.fillMaxSize(),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-         ){
-            Icon(painter = painterResource(id = iconId)
-                , contentDescription = null,
-                tint = if(isSystemInDarkTheme()) LightGray else DarkGray,
-                modifier = Modifier
-                    .size(120.dp)
-                    .alpha(alphaAnim)
-            )
-            Text(
-                modifier = Modifier
-                    .padding(10.dp)
-                    .alpha(alphaAnim),
-                text = message,
-                style = MaterialTheme.typography.bodyMedium,
-                color = if(isSystemInDarkTheme()) LightGray else DarkGray
-            )
+}
 
-           
+fun parseErrorMessage(error: LoadState.Error?): String {
+    return when (error?.error) {
+        is SocketTimeoutException -> {
+            "Server Unavailable"
+        }
+
+        is ConnectException -> {
+            "Internet Unavailable"
+        }
+
+        else -> {
+            "Unknown Error"
         }
     }
 
- fun parseErrorMessage(error: LoadState.Error?) : String {
-     return when(error?.error){
-         is SocketTimeoutException ->{
-             "Server Unavailable"
-         }
-         is ConnectException -> {
-             "Internet Unavailable"
-         }
-         else -> {
-             "Unknown Error"
-         }
-     }
+}
 
- }
-
-//    @Preview(showBackground = true)
-//    @Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
-    @Composable
-            fun EmptyScreenPreview(){
-
-            }
+@Preview(showBackground = true)
+@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun EmptyScreenPreview() {
+    EmptyContent(alphaAnim = 0.3f, message = "Internet Unavailable.",R.drawable.ic_network_error)
+}
 
 
 
