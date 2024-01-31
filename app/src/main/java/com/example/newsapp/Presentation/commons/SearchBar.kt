@@ -7,6 +7,8 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -21,6 +23,7 @@ import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.compose.ui.unit.dp
 import com.example.newsapp.R
@@ -73,13 +76,22 @@ fun SearchBar(
             shape = MaterialTheme.shapes.medium,
             colors = TextFieldDefaults.textFieldColors(
                 containerColor = colorResource(id = R.color.input_background),
-                focusedTextColor  = if(isSystemInDarkTheme()) Color.White else Color.Black,
-                cursorColor = if(isSystemInDarkTheme()) Color.White else Color.Black,
+                focusedTextColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
+                cursorColor = if (isSystemInDarkTheme()) Color.White else Color.Black,
                 disabledIndicatorColor = Color.Transparent,
                 errorIndicatorColor = Color.Transparent,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
-                )
+            ),
+            singleLine = true,
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(
+                onSearch = {
+                    onSearch()
+                }
+            ),
+            textStyle = MaterialTheme.typography.bodySmall,
+            interactionSource = interactionSource
         )
     }
 
