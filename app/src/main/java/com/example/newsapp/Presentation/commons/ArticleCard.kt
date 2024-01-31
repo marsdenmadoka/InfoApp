@@ -30,6 +30,7 @@ import coil.request.ImageRequest
 import com.example.newsapp.Presentation.Dimes.ArticleCardSize
 import com.example.newsapp.Presentation.Dimes.ExtraSmallpadding
 import com.example.newsapp.Presentation.Dimes.ExtraSmallpadding2
+import com.example.newsapp.Presentation.Dimes.smallIconSize
 import com.example.newsapp.R
 import com.example.newsapp.domain.model.Article
 import com.example.newsapp.domain.model.Source
@@ -76,9 +77,19 @@ fun ArticleCard(
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
                     color = colorResource(id = R.color.body)
                 )
+
                 Spacer(modifier = Modifier.width(ExtraSmallpadding2))
                 Icon( painter = painterResource(id = R.drawable.ic_time),
-                    contentDescription = null)
+                    contentDescription = null,
+                    modifier = Modifier.size(smallIconSize),
+                    tint = colorResource(id = R.color.body))
+
+                Spacer(modifier = Modifier.width(ExtraSmallpadding2))
+                Text(
+                    text = article.publishedAt,
+                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold),
+                    color = colorResource(id = R.color.body)
+                )
             }
 
         }
