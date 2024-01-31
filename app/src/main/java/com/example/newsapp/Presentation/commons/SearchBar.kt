@@ -6,16 +6,26 @@ import androidx.compose.foundation.interaction.collectIsPressedAsState
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.input.KeyboardType.Companion.Text
 import androidx.compose.ui.unit.dp
+import com.example.newsapp.R
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchBar(
     modifier: Modifier = Modifier,
@@ -39,18 +49,44 @@ fun SearchBar(
 
     Box(modifier = modifier) {
         TextField(
-            value = text,
-            onValueChange = onValueChange,
             modifier = Modifier
                 .fillMaxWidth()
-                .mysearchBarBorder()
+                .mysearchBarBorder(),
+            value = text,
+            onValueChange = onValueChange,
+            readOnly = readOnly,
+            leadingIcon = {
+                Icon(
+                    painter = painterResource(id = R.drawable.ic_search),
+                    contentDescription = null, modifier = Modifier.size(20.dp)
+                )
+            },
+            placeholder = {
+                Text(
+                    text = "Search",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = colorResource(
+                        id = R.color.placeholder
+                    )
+                )
+            },
+            shape = MaterialTheme.shapes.medium,
+            colors = TextFieldDefaults.textFieldColors(
+                containerColor = colorResource(id = R.color.input_background),
+                focusedTextColor  = if(isSystemInDarkTheme()) Color.White else Color.Black,
+                cursorColor = if(isSystemInDarkTheme()) Color.White else Color.Black,
+                disabledIndicatorColor = Color.Transparent,
+                errorIndicatorColor = Color.Transparent,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+                )
         )
     }
 
 }
 
 fun Modifier.mysearchBarBorder() = composed {//extension function
-    if(!isSystemInDarkTheme()){
+    if (!isSystemInDarkTheme()) {
         border(
             width = 1.dp,
             color = Color.Black,
