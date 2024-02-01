@@ -4,8 +4,8 @@ An Android app consuming [News API]("https://newsapi.org/v2/") to display News l
 built with Jetpack Compose,Clean Architecture Principle, MVVM pattern,MVI pattern as
 well as Architecture Components.
 
-# 🛠️Adding to room  🛠
-# 🛠️Finalizing... 🛠
+## 🛠️still Adding room  🛠
+## 🛠️Finalizing... 🛠
 
 
 ## App
@@ -21,15 +21,15 @@ The search functionality is also present
 These are the app's screenshots:
 
 <p align="center">
-<img src="Screenshot/Screenshot1.jpg" width=300/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <img src="Screenshot/Screenshot2.jpg" width=300/>|
+<img src="Screenshot/Screenshot1.jpg" alt="Splash Screen" width=300/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;   <img src="Screenshot/Screenshot2.jpg" alt="onboardingPage" width=300/>|
 </p>
 
 <p align="center">
-<img src="Screenshot/Screenshot3.jpg" width=300/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <img src="Screenshot/Screenshot4.jpg" width=300/>|
+<img src="Screenshot/Screenshot3.jpg" alt="onboardingPage2" width=300/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <img src="Screenshot/Screenshot4.jpg" alt="Shimmer Effects" width=300/>|
 </p>
 
 <p align="center">
-<img src="Screenshot/Screenshot5.jpg" width=300/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <img src="Screenshot/Screenshot6.jpg" width=300/>|
+<img src="Screenshot/Screenshot5.jpg" alt="Search News" width=300/> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <img src="Screenshot/Screenshot6.jpg"  alt="Details Screen" width=300/>|
 </p>
 
 
