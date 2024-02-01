@@ -14,24 +14,24 @@ data class Page(
 val pages = listOf(
     Page(
 
-        title = "Lorem Ipsum is Simple",
-        description = "Lorem Ipsum is Simple dummy text of the printing and typesetting",
+        title = "Current news",
+        description = "breaking news, developing stories, politics, entertainment, lifestyle and much more ",
+        image = R.drawable.onboarding2
+
+    ),
+
+    Page(
+
+        title = "Business journalism",
+        description = "Global Business and Financial News, Stock Quotes, and Market Data and Analysis. ",
+        image = R.drawable.onboarding1
+
+    ),
+    Page(
+
+        title = "Sports journalism",
+        description = "Get all news coverage on different sports, from Cricket to Football,Tennis ",
         image = R.drawable.image1
-
-    ),
-
-    Page(
-
-        title = "Lorem Ipsum is Simple",
-        description = "Lorem Ipsum is Simple dummy text of the printing and typesetting",
-        image = R.drawable.image5
-
-    ),
-    Page(
-
-        title = "Lorem Ipsum is Simple",
-        description = "Lorem Ipsum is Simple dummy text of the printing and typesetting",
-        image = R.drawable.image4
 
     )
 )
