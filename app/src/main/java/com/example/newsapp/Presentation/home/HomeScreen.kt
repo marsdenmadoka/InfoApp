@@ -23,16 +23,23 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.newsapp.Presentation.Dimes.MediumPadding1
 import com.example.newsapp.Presentation.Navgraph.Route
 import com.example.newsapp.Presentation.commons.ArticlesList
 import com.example.newsapp.Presentation.commons.SearchBar
+import com.example.newsapp.Presentation.search.SearchEvent
+import com.example.newsapp.Presentation.search.SearchState
 import com.example.newsapp.R
 import com.example.newsapp.domain.model.Article
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
+fun HomeScreen(
+    articles: LazyPagingItems<Article>,
+    navigate: (String) -> Unit
+
+) {
     val titles by remember {
         derivedStateOf {
             if (articles.itemCount > 10) {
@@ -69,7 +76,19 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
                 navigate(Route.SearchScreen.route)
             },
             onSearch = {}
+
         )
+
+
+//        SearchBar(
+//            modifier = Modifier.padding(horizontal = MediumPadding1),
+//            text = state.searchQuery,
+//            readOnly = true,
+//            onValueChange = { event(SearchEvent.UpdateSearchQuery(it)) },
+//            onSearch = { event(SearchEvent.SearchNews) },
+//
+//            )
+
 
         Spacer(modifier = Modifier.height(MediumPadding1))
         Text(
@@ -83,6 +102,7 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
 
         Spacer(modifier = Modifier.height(MediumPadding1))
 
+
     ArticlesList(
         modifier = Modifier.padding(horizontal = MediumPadding1),
         articles = articles,
@@ -90,5 +110,6 @@ fun HomeScreen(articles: LazyPagingItems<Article>, navigate: (String) -> Unit) {
             navigate(Route.DetailsScreen.route)
         }
      )
+
     }
 }

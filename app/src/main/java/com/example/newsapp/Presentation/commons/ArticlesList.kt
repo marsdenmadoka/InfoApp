@@ -13,6 +13,7 @@ import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.newsapp.Presentation.Dimes.ExtraSmallpadding
 import com.example.newsapp.Presentation.Dimes.MediumPadding1
+import com.example.newsapp.Presentation.search.SearchState
 import com.example.newsapp.domain.model.Article
 
 @Composable
@@ -20,7 +21,7 @@ import com.example.newsapp.domain.model.Article
 fun ArticlesList(
     modifier: Modifier = Modifier,
     articles: LazyPagingItems<Article>,//recyclerViewer
-    onClick:(Article) -> Unit
+    onClick:(Article) -> Unit,
 ) {
     val handlePagingResult = handlePagingResult(articles = articles)
     if(handlePagingResult){

@@ -13,6 +13,8 @@ import com.example.newsapp.Presentation.home.HomeScreen
 import com.example.newsapp.Presentation.home.HomeViewModel
 import com.example.newsapp.Presentation.onboarding.OnBoardingScreen
 import com.example.newsapp.Presentation.onboarding.OnBoardingViewModel
+import com.example.newsapp.Presentation.search.SearchScreen
+import com.example.newsapp.Presentation.search.SearchViewModel
 
 
 @Composable
@@ -35,15 +37,23 @@ fun NavGraph(
                 )
             }
         }
+
+
+
         navigation(
             route = Route.NewsNavigation.route,
             startDestination = Route.NewsNavigatorScreen.route
         ) {
             composable(route = Route.NewsNavigatorScreen.route) {
-               // Text(text = "News Navigator screen")
-                val viewModel : HomeViewModel = hiltViewModel()
+                // Text(text = "News Navigator screen")
+                val viewModel: HomeViewModel = hiltViewModel()
+
+
                 val articles = viewModel.news.collectAsLazyPagingItems()
-                HomeScreen(articles = articles, navigate ={} )
+
+                HomeScreen(articles = articles, navigate = {})
+
+
             }
 
         }
