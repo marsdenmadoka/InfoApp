@@ -47,12 +47,8 @@ fun NavGraph(
             composable(route = Route.NewsNavigatorScreen.route) {
                 // Text(text = "News Navigator screen")
                 val viewModel: HomeViewModel = hiltViewModel()
-
-
                 val articles = viewModel.news.collectAsLazyPagingItems()
-
                 HomeScreen(articles = articles, navigate = {})
-
 
             }
 
