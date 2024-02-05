@@ -1,7 +1,9 @@
 package com.example.newsapp.Presentation.bookmark
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.MaterialTheme
@@ -11,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import com.example.newsapp.Presentation.Dimes.MediumPadding1
+import com.example.newsapp.Presentation.Navgraph.Route
+import com.example.newsapp.Presentation.commons.ArticlesList
 import com.example.newsapp.R
 
 @Composable
@@ -30,5 +34,8 @@ fun BookmarkScreen(
             color = colorResource(id = R.color.text_title)
         )
 
+        Spacer(modifier = Modifier.height(MediumPadding1))
+
+        ArticlesList(articles = state.articles, onClick = {navigate(Route.DetailsScreen.route)})
     }
 }
