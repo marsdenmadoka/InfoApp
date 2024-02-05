@@ -4,7 +4,7 @@ package com.example.newsapp.domain.usecases.news
 data class NewsUseCases(
     //remote use
     val getNews: GetNews,
-    val searchNews:SearchNews
+    val searchNews:SearchNews,
 
     //for local db
     val upsertArticle: UpsertArticle,
