@@ -18,6 +18,9 @@ class BookmarkViewModel @Inject constructor(
     private val _state = mutableStateOf(BookmarkState())
     val state: State<BookmarkState> = _state
 
+    init {
+        getArticles()
+    }
     //fetching all bookmarked articles from our roomDB
     private fun getArticles(){
         newsUseCases.selectArticles().onEach {
