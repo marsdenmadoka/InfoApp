@@ -21,17 +21,18 @@ import com.example.newsapp.domain.model.Article
 fun ArticlesList(
     modifier: Modifier = Modifier,
     articles: LazyPagingItems<Article>,//recyclerViewer
-    onClick:(Article) -> Unit,
+    onClick: (Article) -> Unit,
 ) {
     val handlePagingResult = handlePagingResult(articles = articles)
-    if(handlePagingResult){
-        LazyColumn(modifier = Modifier.fillMaxSize(),
+    if (handlePagingResult) {
+        LazyColumn(
+            modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(MediumPadding1),
             contentPadding = PaddingValues(all = ExtraSmallpadding)
-        ){
-            items(count =articles.itemCount) {
-                articles[it]?.let{
-                    ArticleCard(article = it, onClick = {onClick(it)})
+        ) {
+            items(count = articles.itemCount) {
+                articles[it]?.let {
+                    ArticleCard(article = it, onClick = { onClick(it) })
 
 
                 }
@@ -40,38 +41,66 @@ fun ArticlesList(
     }
 }
 
+
+//function overloading //this will be used for our room db
 @Composable
-fun handlePagingResult( articles: LazyPagingItems<Article>):Boolean {
+fun ArticlesList(
+    modifier: Modifier = Modifier,
+    articles: List<Article>,//recyclerViewer
+    onClick: (Article) -> Unit,
+) {
+
+    LazyColumn(
+        modifier = modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(MediumPadding1),
+        contentPadding = PaddingValues(all = ExtraSmallpadding)
+    ) {
+        items(count = articles.size) {
+           val article = articles[it]
+                ArticleCard(article = article, onClick = { onClick(article) })
+
+
+
+        }
+    }
+}
+
+
+@Composable
+fun handlePagingResult(articles: LazyPagingItems<Article>): Boolean {
     val loadState = articles.loadState
-  val error = when{
-      loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
-      loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
-      loadState.append is LoadState.Error -> loadState.append as LoadState.Error
-      else -> null
-  }
+    val error = when {
+        loadState.refresh is LoadState.Error -> loadState.refresh as LoadState.Error
+        loadState.prepend is LoadState.Error -> loadState.prepend as LoadState.Error
+        loadState.append is LoadState.Error -> loadState.append as LoadState.Error
+        else -> null
+    }
 
     return when {
-        loadState.refresh is LoadState.Loading ->{
-       ShimmerEffect()
+        loadState.refresh is LoadState.Loading -> {
+            ShimmerEffect()
             false
         }
-        error !=null ->{
+
+        error != null -> {
             EmptyScreen()
             false
-        }else -> {
+        }
+
+        else -> {
             true
         }
     }
 }
 
 @Composable
-private fun ShimmerEffect(){
-    Column (verticalArrangement = Arrangement.spacedBy(MediumPadding1)){
-       repeat(10){
-           ArticleCardShimmerEffect(
-               modifier = Modifier.padding(horizontal = MediumPadding1 )
-           )
-       }
+private fun ShimmerEffect() {
+    Column(verticalArrangement = Arrangement.spacedBy(MediumPadding1)) {
+        repeat(10) {
+            ArticleCardShimmerEffect(
+                modifier = Modifier.padding(horizontal = MediumPadding1)
+            )
+        }
     }
 }
 
