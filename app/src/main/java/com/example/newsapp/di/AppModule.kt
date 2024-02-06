@@ -17,6 +17,7 @@ import com.example.newsapp.domain.usecases.news.DeleteArticle
 import com.example.newsapp.domain.usecases.news.GetNews
 import com.example.newsapp.domain.usecases.news.NewsUseCases
 import com.example.newsapp.domain.usecases.news.SearchNews
+import com.example.newsapp.domain.usecases.news.SelectArticle
 import com.example.newsapp.domain.usecases.news.SelectArticles
 import com.example.newsapp.domain.usecases.news.UpsertArticle
 import com.example.newsapp.util.Constants.BASE_URL
@@ -80,7 +81,8 @@ object AppModule {
           //for our local db
           deleteArticle = DeleteArticle(newsDao),
           upsertArticle = UpsertArticle(newsDao),
-          selectArticles = SelectArticles(newsDao)
+          selectArticles = SelectArticles(newsDao),
+          selectArticle = SelectArticle(newsDao)
       )
   }
 

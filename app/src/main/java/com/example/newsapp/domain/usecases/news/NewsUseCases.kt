@@ -6,9 +6,11 @@ data class NewsUseCases(
     val getNews: GetNews,
     val searchNews:SearchNews,
 
+
     //for local db
+    val selectArticle: SelectArticle,
     val upsertArticle: UpsertArticle,
     val deleteArticle: DeleteArticle,
-    val selectArticles: SelectArticles
+     val selectArticles: SelectArticles
 
 )
