@@ -41,7 +41,7 @@ class DetailsViewMode @Inject constructor(
 
     private suspend fun upsertArtile(article: Article) {
         newsUseCases.upsertArticle(article = article)
-        sideEffect = "Article Inserted"
+        sideEffect = "Article saved"
     }
 
     private suspend fun deleteArticle(article: Article) {

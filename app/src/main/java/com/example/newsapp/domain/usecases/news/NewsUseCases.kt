@@ -8,9 +8,9 @@ data class NewsUseCases(
 
 
     //for local db
-    val selectArticle: SelectArticle,
     val upsertArticle: UpsertArticle,
     val deleteArticle: DeleteArticle,
-     val selectArticles: SelectArticles
+     val selectArticles: SelectArticles,
+    val selectArticle: SelectArticle
 
 )

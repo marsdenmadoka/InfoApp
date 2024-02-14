@@ -2,7 +2,6 @@ package com.example.newsapp.data.local
 
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
-import androidx.room.TypeConverters
 import com.example.newsapp.domain.model.Source
 
 @ProvidedTypeConverter
