@@ -35,6 +35,6 @@ These are the app's screenshots:
 
 
 ## Clean Architecture diagram
-<img src="Screenshot/CleanArchitecture.png" width= 1280 alt="">
+<img src="Screenshot/CleanArchitecture.png" width= 1280 height="720" alt="">
 
 
