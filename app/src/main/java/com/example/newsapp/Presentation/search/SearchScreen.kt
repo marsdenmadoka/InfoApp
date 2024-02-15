@@ -13,12 +13,13 @@ import com.example.newsapp.Presentation.Dimes.MediumPadding1
 import com.example.newsapp.Presentation.Navgraph.Route
 import com.example.newsapp.Presentation.commons.ArticlesList
 import com.example.newsapp.Presentation.commons.SearchBar
+import com.example.newsapp.domain.model.Article
 
 @Composable
 fun SearchScreen(
     state: SearchState,
     event: (SearchEvent) -> Unit,
-    navigate: (String) -> Unit
+    navigateToDetails: (Article) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -40,7 +41,7 @@ fun SearchScreen(
         Spacer(modifier = Modifier.height(MediumPadding1))
         state.articles?.let {
             val articles = it.collectAsLazyPagingItems()
-            ArticlesList(articles = articles, onClick = {navigate(Route.DetailsScreen.route)})
+            ArticlesList(articles = articles, onClick = {navigateToDetails(it)})
         }
     }
 }

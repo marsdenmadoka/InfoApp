@@ -22,7 +22,10 @@ import com.example.newsapp.Presentation.home.HomeScreen
 import com.example.newsapp.Presentation.home.HomeViewModel
 import com.example.newsapp.Presentation.news_navigator.components.BottomNavigationItem
 import com.example.newsapp.Presentation.news_navigator.components.NewsBottomNavigation
+import com.example.newsapp.Presentation.search.SearchScreen
+import com.example.newsapp.Presentation.search.SearchViewModel
 import com.example.newsapp.R
+import com.example.newsapp.domain.model.Article
 
 @Composable
 fun NewsNavigator() {
@@ -95,20 +98,36 @@ fun NewsNavigator() {
                     navigateToSearch = {
                         navigateToTap(navController = navController, route = Route.SearchScreen.route)
                     },
-                    navigateToDetails = {
-                        navigateToTap(navController = navController, route = Route.DetailsScreen.route)
+                    navigateToDetails = { article ->
+                        navigateToDetails(
+                            navController = navController,
+                            article = article
+                        )
+
                     }
 
                 )
+            }
+
+            composable(route =Route.SearchScreen.route){
+                val viewModel: SearchViewModel = hiltViewModel()
+                val state = viewModel.state.value
+                SearchScreen(state = state,
+                    event = viewModel::onEvent,
+                    navigateToDetails = { navigateToDetails(navController = navController, article = it) })
+
+                }
+
+            composable()
             }
         }
 
 
     }
-}
 
 
-fun navigateToTap(navController: NavController, route: String) {
+
+private fun navigateToTap(navController: NavController, route: String) {
 
     navController.navigate(route) {
         navController.graph.startDestinationRoute?.let { homescreen ->
@@ -119,4 +138,16 @@ fun navigateToTap(navController: NavController, route: String) {
             launchSingleTop = true
         }
     }
+}
+
+//helper function
+private fun navigateToDetails(navController: NavController, article: Article){
+    //passing data object with us
+    //we made our object parcelable in Article.kt
+    navController.currentBackStackEntry?.savedStateHandle?.
+    set("article",article)
+    navController.navigate(
+        route = Route.DetailsScreen.route
+    )
+
 }
