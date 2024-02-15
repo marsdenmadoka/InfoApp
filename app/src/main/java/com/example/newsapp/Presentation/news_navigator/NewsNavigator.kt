@@ -18,6 +18,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.newsapp.Presentation.Navgraph.Route
+import com.example.newsapp.Presentation.details.DetailsScreen
+import com.example.newsapp.Presentation.details.DetailsViewModel
 import com.example.newsapp.Presentation.home.HomeScreen
 import com.example.newsapp.Presentation.home.HomeViewModel
 import com.example.newsapp.Presentation.news_navigator.components.BottomNavigationItem
@@ -90,13 +92,16 @@ fun NewsNavigator() {
             modifier = Modifier.padding(bottom = bottomPadding)
         )
         {
-            composable(route = Route.HomeScreen.route){
-                val viewModel: HomeViewModel= hiltViewModel()
+            composable(route = Route.HomeScreen.route) {
+                val viewModel: HomeViewModel = hiltViewModel()
                 val articles = viewModel.news.collectAsLazyPagingItems()
                 HomeScreen(
                     articles = articles,
                     navigateToSearch = {
-                        navigateToTap(navController = navController, route = Route.SearchScreen.route)
+                        navigateToTap(
+                            navController = navController,
+                            route = Route.SearchScreen.route
+                        )
                     },
                     navigateToDetails = { article ->
                         navigateToDetails(
@@ -109,22 +114,35 @@ fun NewsNavigator() {
                 )
             }
 
-            composable(route =Route.SearchScreen.route){
+            composable(route = Route.SearchScreen.route) {
                 val viewModel: SearchViewModel = hiltViewModel()
                 val state = viewModel.state.value
                 SearchScreen(state = state,
                     event = viewModel::onEvent,
-                    navigateToDetails = { navigateToDetails(navController = navController, article = it) })
+                    navigateToDetails = {
+                        navigateToDetails(
+                            navController = navController,
+                            article = it
+                        )
+                    })
 
-                }
+            }
 
-            composable()
+            composable(route = Route.DetailsScreen.route) {
+                val viewModel: DetailsViewModel = hiltViewModel()
+                navController.previousBackStackEntry?.savedStateHandle?.get<Article>("article")
+                    ?.let { article ->
+                        DetailsScreen(article = article,
+                            event = viewModel::onEvent, navigateUp = { navController.navigateUp() })
+
+
+                    }
             }
         }
-
-
     }
 
+
+}
 
 
 private fun navigateToTap(navController: NavController, route: String) {
@@ -141,11 +159,10 @@ private fun navigateToTap(navController: NavController, route: String) {
 }
 
 //helper function
-private fun navigateToDetails(navController: NavController, article: Article){
+private fun navigateToDetails(navController: NavController, article: Article) {
     //passing data object with us
     //we made our object parcelable in Article.kt
-    navController.currentBackStackEntry?.savedStateHandle?.
-    set("article",article)
+    navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
     navController.navigate(
         route = Route.DetailsScreen.route
     )
