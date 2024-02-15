@@ -16,11 +16,12 @@ import com.example.newsapp.Presentation.Dimes.MediumPadding1
 import com.example.newsapp.Presentation.Navgraph.Route
 import com.example.newsapp.Presentation.commons.ArticlesList
 import com.example.newsapp.R
+import com.example.newsapp.domain.model.Article
 
 @Composable
 fun BookmarkScreen(
     state: BookmarkState,
-    navigate: (String) -> Unit
+    navigateToDetails:(Article) -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -36,6 +37,6 @@ fun BookmarkScreen(
 
         Spacer(modifier = Modifier.height(MediumPadding1))
 
-        ArticlesList(articles = state.articles, onClick = {navigate(Route.DetailsScreen.route)})
+        ArticlesList(articles = state.articles, onClick = {navigateToDetails(it)})
     }
 }

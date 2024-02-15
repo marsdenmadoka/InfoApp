@@ -18,6 +18,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.newsapp.Presentation.Navgraph.Route
+import com.example.newsapp.Presentation.bookmark.BookmarkScreen
+import com.example.newsapp.Presentation.bookmark.BookmarkViewModel
 import com.example.newsapp.Presentation.details.DetailsScreen
 import com.example.newsapp.Presentation.details.DetailsViewModel
 import com.example.newsapp.Presentation.home.HomeScreen
@@ -130,6 +132,7 @@ fun NewsNavigator() {
 
             composable(route = Route.DetailsScreen.route) {
                 val viewModel: DetailsViewModel = hiltViewModel()
+               //TODO:Handle side effect
                 navController.previousBackStackEntry?.savedStateHandle?.get<Article>("article")
                     ?.let { article ->
                         DetailsScreen(article = article,
@@ -137,6 +140,15 @@ fun NewsNavigator() {
 
 
                     }
+            }
+
+            composable(route = Route.BookmarkScreen.route){
+                NewsNavigator()
+//                val viewModel:BookmarkViewModel= hiltViewModel()
+//                val state = viewModel.state.value
+//                BookmarkScreen(state = state, navigateToDetails ={ article ->
+//                   navigateToDetails(navController=navController, article = article)
+//                } )
             }
         }
     }
