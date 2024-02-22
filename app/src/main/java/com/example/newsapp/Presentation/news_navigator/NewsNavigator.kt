@@ -1,5 +1,6 @@
 package com.example.newsapp.Presentation.news_navigator
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -10,6 +11,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
@@ -20,6 +22,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.newsapp.Presentation.Navgraph.Route
 import com.example.newsapp.Presentation.bookmark.BookmarkScreen
 import com.example.newsapp.Presentation.bookmark.BookmarkViewModel
+import com.example.newsapp.Presentation.details.DetailsEvent
 import com.example.newsapp.Presentation.details.DetailsScreen
 import com.example.newsapp.Presentation.details.DetailsViewModel
 import com.example.newsapp.Presentation.home.HomeScreen
@@ -45,7 +48,6 @@ fun NewsNavigator() {
 
 
     val navController = rememberNavController()
-
     val backstackState = navController.currentBackStackEntryAsState().value
     var selectedItem by rememberSaveable {
         mutableStateOf(0)
@@ -58,34 +60,45 @@ fun NewsNavigator() {
         else -> 0
     }
 
+    //we don't want to show the bottom nav when we are in detailscreen
+    val isBottomBarVisible = remember(key1 = backstackState) {
+        backstackState?.destination?.route == Route.HomeScreen.route ||
+                backstackState?.destination?.route == Route.HomeScreen.route ||
+                backstackState?.destination?.route == Route.HomeScreen.route
+
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
+
         bottomBar = {
-            NewsBottomNavigation(
-                items = bottomNavigationItems,
-                selected = selectedItem,
-                onItemClick = { index ->
+            if (isBottomBarVisible){
+                NewsBottomNavigation(
+                    items = bottomNavigationItems,
+                    selected = selectedItem,
+                    onItemClick = { index ->
 
-                    when (index) {
-                        0 -> navigateToTap(
-                            navController = navController,
-                            route = Route.HomeScreen.route
-                        )
+                        when (index) {
+                            0 -> navigateToTap(
+                                navController = navController,
+                                route = Route.HomeScreen.route
+                            )
 
-                        1 -> navigateToTap(
-                            navController = navController,
-                            route = Route.SearchScreen.route
-                        )
+                            1 -> navigateToTap(
+                                navController = navController,
+                                route = Route.SearchScreen.route
+                            )
 
-                        2 -> navigateToTap(
-                            navController = navController,
-                            route = Route.BookmarkScreen.route
-                        )
+                            2 -> navigateToTap(
+                                navController = navController,
+                                route = Route.BookmarkScreen.route
+                            )
 
-                    }
-                })
+                        }
+                    })
         }
+        }
+
     ) {
         val bottomPadding = it.calculateBottomPadding()
         NavHost(
@@ -121,34 +134,41 @@ fun NewsNavigator() {
                 val state = viewModel.state.value
                 SearchScreen(state = state,
                     event = viewModel::onEvent,
-                    navigateToDetails = {
+                    navigateToDetails = { article ->
                         navigateToDetails(
                             navController = navController,
-                            article = it
+                            article = article
                         )
                     })
 
             }
 
             composable(route = Route.DetailsScreen.route) {
-                val viewModel: DetailsViewModel = hiltViewModel()
-               //TODO:Handle side effect
-                navController.previousBackStackEntry?.savedStateHandle?.get<Article>("article")
+               val viewModel: DetailsViewModel = hiltViewModel()
+                if(viewModel.sideEffect != null){
+                    Toast.makeText(LocalContext.current,viewModel.sideEffect, Toast.LENGTH_SHORT).show()
+                    viewModel.onEvent(DetailsEvent.RemoveSideEffect)
+
+                }
+
+                navController.previousBackStackEntry?.savedStateHandle?.get<Article?>("article")
                     ?.let { article ->
-                        DetailsScreen(article = article,
-                            event = viewModel::onEvent, navigateUp = { navController.navigateUp() })
+                        DetailsScreen(
+                            article = article,
+                            event = {},
+                            navigateUp = { navController.navigateUp() }
+                        )
 
 
                     }
             }
 
-            composable(route = Route.BookmarkScreen.route){
-                NewsNavigator()
-//                val viewModel:BookmarkViewModel= hiltViewModel()
-//                val state = viewModel.state.value
-//                BookmarkScreen(state = state, navigateToDetails ={ article ->
-//                   navigateToDetails(navController=navController, article = article)
-//                } )
+            composable(route = Route.BookmarkScreen.route) {
+                val viewModel: BookmarkViewModel = hiltViewModel()
+                val state = viewModel.state.value
+                BookmarkScreen(state = state, navigateToDetails = { article ->
+                    navigateToDetails(navController = navController, article = article)
+                })
             }
         }
     }
