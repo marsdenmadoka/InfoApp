@@ -107,7 +107,9 @@ fun HomeScreen(
     ArticlesList(
         modifier = Modifier.padding(horizontal = MediumPadding1),
         articles = articles,
-        onClick = navigateToDetails
+        onClick = {
+            navigateToDetails(it)
+        }
 
      )
 
