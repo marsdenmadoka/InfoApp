@@ -68,7 +68,9 @@ fun ArticleCardShimmerEffect(
                 .size(Dimes.ArticleCardSize)
                 .clip(MaterialTheme.shapes.medium)
                 .shimmerEffect()
+            
         )
+
         Column(
             verticalArrangement = Arrangement.SpaceAround,
             modifier = Modifier

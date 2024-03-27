@@ -148,20 +148,16 @@ fun NewsNavigator() {
 
             composable(route = Route.DetailsScreen.route) {
              val viewModel: DetailsViewModel = hiltViewModel()
-//                if(viewModel.sideEffect != null){
-//                    Toast.makeText(LocalContext.current,viewModel.sideEffect, Toast.LENGTH_SHORT).show()
-//                    viewModel.onEvent(DetailsEvent.RemoveSideEffect)
-//
-//                }
 
                 navController.previousBackStackEntry?.savedStateHandle?.get<Article?>("article")
                     ?.let { article ->
                         DetailsScreen(
                             article = article,
                             event = viewModel::onEvent,
-                            navigateUp = { navController.navigateUp() })
+                            navigateUp = { navController.navigateUp()},
+                            sideEffect = viewModel.sideEffect
 
-
+                        )
                     }
             }
 

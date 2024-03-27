@@ -1,5 +1,6 @@
 package com.example.newsapp.Presentation.home
 
+import android.content.res.Configuration
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,18 +21,21 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.newsapp.Presentation.Dimes.MediumPadding1
 import com.example.newsapp.Presentation.Navgraph.Route
 import com.example.newsapp.Presentation.commons.ArticlesList
 import com.example.newsapp.Presentation.commons.SearchBar
+import com.example.newsapp.Presentation.onboarding.pages
 import com.example.newsapp.Presentation.search.SearchEvent
 import com.example.newsapp.Presentation.search.SearchState
 import com.example.newsapp.R
 import com.example.newsapp.domain.model.Article
+import com.example.newsapp.ui.theme.NewsAppTheme
+
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -115,3 +119,8 @@ fun HomeScreen(
 
     }
 }
+
+
+
+//val article = articles[it]
+//ArticleCard(article = article, onClick = { onClick(article) })

@@ -33,6 +33,7 @@ import com.example.newsapp.ui.theme.NewsAppTheme
 fun DetailsScreen(
     article: Article,
     event: (DetailsEvent) -> Unit,
+    sideEffect: UIComponent?,
     navigateUp: () -> Unit
 ) {
     val context = LocalContext.current
