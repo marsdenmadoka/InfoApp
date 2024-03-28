@@ -147,15 +147,15 @@ fun NewsNavigator() {
             }
 
             composable(route = Route.DetailsScreen.route) {
-             val viewModel: DetailsViewModel = hiltViewModel()
+             val viewModeldetails: DetailsViewModel = hiltViewModel()
 
                 navController.previousBackStackEntry?.savedStateHandle?.get<Article?>("article")
                     ?.let { article ->
                         DetailsScreen(
                             article = article,
-                            event = viewModel::onEvent,
+                            event = viewModeldetails::onEvent,
                             navigateUp = { navController.navigateUp()},
-                            sideEffect = viewModel.sideEffect
+                            sideEffect = viewModeldetails.sideEffect
 
                         )
                     }
