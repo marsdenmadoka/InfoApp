@@ -10,6 +10,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.newsapp.ui.theme.WhiteGray
 
@@ -19,7 +20,8 @@ fun NewsButton(
     onClick: () -> Unit
 ) {
     Button(
-        onClick = onClick, colors = ButtonDefaults.buttonColors(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = Color.White
         ),
@@ -45,5 +47,20 @@ fun NewsTextButton(
             style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.SemiBold),
             color = WhiteGray
         )
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun NewbtnPr(){
+  NewsButton(text = "button") {
+      
+  }
+}
+@Preview(showBackground = true)
+@Composable
+fun NewstextbtnPr(){
+    NewsTextButton(text = "buton") {
+        
     }
 }

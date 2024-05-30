@@ -87,6 +87,7 @@ fun OnBoardingScreen(
                         }
                     )
                 }
+
                 NewsButton(text = buttonState.value[1], onClick = {
                     scope.launch {
 
