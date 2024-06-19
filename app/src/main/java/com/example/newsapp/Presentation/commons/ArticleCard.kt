@@ -46,7 +46,7 @@ fun ArticleCard(
 ) {
     val context = LocalContext.current
 
-    Row(modifier = modifier.clickable { onClick }) {
+    Row(modifier = modifier.clickable { onClick() }) {
 
         AsyncImage(
             modifier = Modifier
